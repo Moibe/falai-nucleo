@@ -61,7 +61,7 @@ export async function veo31I2VSubmit(
   return { request_id: submission.request_id };
 }
 
-// R2V no acepta negative_prompt según el schema, pero buildBase lo ignora si no viene.
+// R2V: duration fija 8s y NO acepta negative_prompt (rechazado por fal).
 export interface Veo31R2VBody extends BaseBody {
   image_urls?: string[];
   reference_image_urls?: string[];
@@ -75,6 +75,12 @@ export async function veo31R2VSubmit(
   const imgs = body.image_urls ?? body.reference_image_urls ?? [];
   if (!Array.isArray(imgs) || imgs.length === 0) {
     throw new NucleoError(400, 'image_urls requerido (al menos 1 imagen de referencia)');
+  }
+  if (body.duration !== undefined && body.duration !== '8s') {
+    throw new NucleoError(400, 'R2V tiene duration fija de 8s');
+  }
+  if (body.negative_prompt && body.negative_prompt.trim()) {
+    throw new NucleoError(400, 'R2V no acepta negative_prompt');
   }
   const input = buildBase(body);
   input.image_urls = imgs;
@@ -94,6 +100,10 @@ export async function veo31FLFSubmit(
 ): Promise<{ request_id: string }> {
   if (!body.first_frame_url) throw new NucleoError(400, 'first_frame_url requerido');
   if (!body.last_frame_url) throw new NucleoError(400, 'last_frame_url requerido');
+  // Lite FLF tiene duration fija 8s; el endpoint standard FLF acepta el rango normal.
+  if (modelId.includes('/lite/') && body.duration !== undefined && body.duration !== '8s') {
+    throw new NucleoError(400, 'Lite FLF tiene duration fija de 8s');
+  }
   const input = buildBase(body);
   input.first_frame_url = body.first_frame_url;
   input.last_frame_url = body.last_frame_url;

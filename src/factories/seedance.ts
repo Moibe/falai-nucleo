@@ -6,6 +6,20 @@ type Resolution = '480p' | '720p' | '1080p';
 // Duration: v2 acepta "auto" o 4-15; v1 acepta 2-12 (siempre como string en payload).
 type DurationVal = number | 'auto';
 
+function validateSeedanceDuration(duration: DurationVal, family: 'v2' | 'v1'): void {
+  if (duration === 'auto') {
+    if (family !== 'v2') throw new NucleoError(400, '"auto" solo soportado en seedance 2.0');
+    return;
+  }
+  if (typeof duration !== 'number' || !Number.isFinite(duration)) {
+    throw new NucleoError(400, 'duration debe ser número o "auto"');
+  }
+  const [min, max] = family === 'v2' ? [4, 15] : [2, 12];
+  if (duration < min || duration > max) {
+    throw new NucleoError(400, `duration fuera de rango (${family === 'v2' ? '2.0' : '1.x'}: ${min}-${max}s)`);
+  }
+}
+
 export interface SeedanceI2VBody {
   image_url: string;
   prompt?: string;
@@ -37,6 +51,7 @@ export async function seedanceI2VSubmit(
   if (body.aspect_ratio) input.aspect_ratio = body.aspect_ratio;
 
   if (body.duration !== undefined) {
+    validateSeedanceDuration(body.duration, family);
     input.duration = typeof body.duration === 'number' ? String(body.duration) : body.duration;
   }
   if (body.seed !== undefined) input.seed = body.seed;
@@ -79,6 +94,7 @@ export async function seedanceT2VSubmit(
   if (body.resolution) input.resolution = body.resolution;
   if (body.aspect_ratio) input.aspect_ratio = body.aspect_ratio;
   if (body.duration !== undefined) {
+    validateSeedanceDuration(body.duration, family);
     input.duration = typeof body.duration === 'number' ? String(body.duration) : body.duration;
   }
   if (body.seed !== undefined) input.seed = body.seed;
@@ -149,6 +165,7 @@ export async function seedanceR2VSubmit(
   if (body.resolution) input.resolution = body.resolution;
   if (body.aspect_ratio) input.aspect_ratio = body.aspect_ratio;
   if (body.duration !== undefined) {
+    validateSeedanceDuration(body.duration, family);
     input.duration = typeof body.duration === 'number' ? String(body.duration) : body.duration;
   }
   if (body.seed !== undefined) input.seed = body.seed;
