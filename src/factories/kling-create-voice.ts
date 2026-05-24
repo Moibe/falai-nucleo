@@ -4,6 +4,7 @@ import { NucleoError } from '../errors.js';
 // Kling create-voice — endpoint utilitario (no genera video).
 // Sube un audio/video de 5-30s con una sola voz limpia y devuelve un voice_id
 // reusable en elements[].voice_id de generaciones v2.6/v3.
+// Formatos aceptados: .mp3, .wav, .m4a, .mp4, .mov
 
 export interface KlingCreateVoiceBody {
   voice_url: string;
