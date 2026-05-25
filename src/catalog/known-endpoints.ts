@@ -203,5 +203,7 @@ export const KNOWN_ENDPOINTS: KnownEndpoint[] = [
 
   // ==================== FLUX (Black Forest Labs) ====================
   // Primer proveedor de imagen (T2I) en el catálogo. Endpoint único.
-  { id: 'fal-ai/flux-2-pro', provider: 'Flux', model: '2', variant: 'Pro', task: 'T2I' }
+  { id: 'fal-ai/flux-2-pro', provider: 'Flux', model: '2', variant: 'Pro', task: 'T2I' },
+  // PuLID adapter sobre Flux.1-dev — preservación de identidad facial.
+  { id: 'fal-ai/flux-pulid', provider: 'Flux', model: 'PuLID', variant: '-', task: 'T2I', notes: 'Reference image → escenas variando manteniendo cara' }
 ];
