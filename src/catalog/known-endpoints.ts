@@ -4,7 +4,7 @@
 
 export type KnownEndpoint = {
   id: string;
-  provider: 'Kling' | 'Seedance' | 'Wan' | 'PixVerse' | 'Happy Horse' | 'Veo' | 'Hailuo' | 'LTX' | 'Omnihuman' | 'Flux';
+  provider: 'Kling' | 'Seedance' | 'Wan' | 'PixVerse' | 'Happy Horse' | 'Veo' | 'Hailuo' | 'LTX' | 'Omnihuman' | 'Flux' | 'Nano Banana';
   model: string;
   variant: string;
   task: 'I2V' | 'T2V' | 'R2V' | 'Edit' | 'Extend' | 'Transition' | 'Effects' | 'Swap' | 'Lipsync' | 'FLF' | 'Audio2V' | 'Retake' | 'T2I' | 'VoiceCreate';
@@ -205,5 +205,11 @@ export const KNOWN_ENDPOINTS: KnownEndpoint[] = [
   // Primer proveedor de imagen (T2I) en el catálogo. Endpoint único.
   { id: 'fal-ai/flux-2-pro', provider: 'Flux', model: '2', variant: 'Pro', task: 'T2I' },
   // PuLID adapter sobre Flux.1-dev — preservación de identidad facial.
-  { id: 'fal-ai/flux-pulid', provider: 'Flux', model: 'PuLID', variant: '-', task: 'T2I', notes: 'Reference image → escenas variando manteniendo cara' }
+  { id: 'fal-ai/flux-pulid', provider: 'Flux', model: 'PuLID', variant: '-', task: 'T2I', notes: 'Reference image → escenas variando manteniendo cara' },
+
+  // ==================== NANO BANANA (Google Gemini 2.5 Flash Image) ====================
+  // Image gen + edit instruction-based. El /edit es ideal para "remove X" / "add Y"
+  // sin máscaras — supera a Kontext en edits quirúrgicos.
+  { id: 'fal-ai/nano-banana', provider: 'Nano Banana', model: 'Gemini 2.5 Flash Image', variant: '-', task: 'T2I' },
+  { id: 'fal-ai/nano-banana/edit', provider: 'Nano Banana', model: 'Gemini 2.5 Flash Image', variant: '-', task: 'Edit', notes: 'Edit instruction-based con image_urls; multi-referencia soportada' }
 ];
