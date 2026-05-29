@@ -39,17 +39,18 @@ export type GenerateFluxKontextOptions = {
 
 function resolveTier(body: FluxKontextBody, requested?: FluxKontextTier): FluxKontextTier {
   const isMulti = isFluxKontextMultiBody(body);
+  const requestedIsMulti = requested === 'multi' || requested === 'max-multi';
   if (requested) {
-    if (isMulti && requested !== 'multi') {
+    if (isMulti && !requestedIsMulti) {
       throw new NucleoError(
         400,
-        `tier='${requested}' es incompatible con image_urls (array). Usa tier='multi' o cambia el body a image_url (string).`
+        `tier='${requested}' es incompatible con image_urls (array). Usa tier='multi' o 'max-multi', o cambia el body a image_url (string).`
       );
     }
-    if (!isMulti && requested === 'multi') {
+    if (!isMulti && requestedIsMulti) {
       throw new NucleoError(
         400,
-        `tier='multi' requiere image_urls (array) en el body, no image_url (string).`
+        `tier='${requested}' requiere image_urls (array) en el body, no image_url (string).`
       );
     }
     return requested;

@@ -4,12 +4,17 @@
 // "variation" de Flux, perfecta para lookbooks: misma persona en distintos
 // outfits/escenarios.
 //
-// 3 tiers conocidos (verificado fal docs 2026-05-19):
-//   - pro    → fal-ai/flux-pro/kontext        (1 image_url, calidad estándar)
-//   - max    → fal-ai/flux-pro/kontext/max    (1 image_url, calidad superior)
-//   - multi  → fal-ai/flux-pro/kontext/multi  (array image_urls, combinar refs)
+// 4 tiers conocidos (verificado fal docs):
+//   - pro        → fal-ai/flux-pro/kontext            (1 image_url, calidad estándar)
+//   - max        → fal-ai/flux-pro/kontext/max        (1 image_url, calidad superior)
+//   - multi      → fal-ai/flux-pro/kontext/multi      (array image_urls, pro tier)
+//   - max-multi  → fal-ai/flux-pro/kontext/max/multi  (array image_urls, max tier)
+//
+// Nota: `multi` históricamente apunta al pro-multi (mantenido por compatibilidad
+// con consumidores existentes que pasan tier='multi'). El nuevo `max-multi` es
+// el experimental Multi Image del tier Max.
 
-export type FluxKontextTier = 'pro' | 'max' | 'multi';
+export type FluxKontextTier = 'pro' | 'max' | 'multi' | 'max-multi';
 
 export type FluxKontextTierMeta = {
   value: FluxKontextTier;
@@ -37,9 +42,16 @@ export const FLUX_KONTEXT_TIERS: FluxKontextTierMeta[] = [
   },
   {
     value: 'multi',
-    label: 'Multi',
-    hint: 'FLUX.1 Kontext [multi] — varias imágenes combinadas como referencia',
+    label: 'Multi (Pro)',
+    hint: 'FLUX.1 Kontext [pro] Multi — varias imágenes combinadas como referencia',
     endpoint: 'fal-ai/flux-pro/kontext/multi',
+    multi: true
+  },
+  {
+    value: 'max-multi',
+    label: 'Multi (Max)',
+    hint: 'FLUX.1 Kontext [max] Multi — varias imágenes combinadas, calidad superior',
+    endpoint: 'fal-ai/flux-pro/kontext/max/multi',
     multi: true
   }
 ];
