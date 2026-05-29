@@ -211,5 +211,9 @@ export const KNOWN_ENDPOINTS: KnownEndpoint[] = [
   // Image gen + edit instruction-based. El /edit es ideal para "remove X" / "add Y"
   // sin máscaras — supera a Kontext en edits quirúrgicos.
   { id: 'fal-ai/nano-banana', provider: 'Nano Banana', model: 'Gemini 2.5 Flash Image', variant: '-', task: 'T2I' },
-  { id: 'fal-ai/nano-banana/edit', provider: 'Nano Banana', model: 'Gemini 2.5 Flash Image', variant: '-', task: 'Edit', notes: 'Edit instruction-based con image_urls; multi-referencia soportada' }
+  { id: 'fal-ai/nano-banana/edit', provider: 'Nano Banana', model: 'Gemini 2.5 Flash Image', variant: '-', task: 'Edit', notes: 'Edit instruction-based con image_urls; multi-referencia soportada' },
+  // V2 — state-of-the-art, añade resolution (hasta 4K), system_prompt, web_search,
+  // thinking_level y aspect ratios ultra (4:1, 1:4, 8:1, 1:8).
+  { id: 'fal-ai/nano-banana-2', provider: 'Nano Banana', model: '2', variant: '-', task: 'T2I' },
+  { id: 'fal-ai/nano-banana-2/edit', provider: 'Nano Banana', model: '2', variant: '-', task: 'Edit', notes: 'Edit con image_urls; soporta resolution hasta 4K' }
 ];

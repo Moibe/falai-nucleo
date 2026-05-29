@@ -14,6 +14,7 @@ export * from './catalog/happy-horse-options.js';
 export * from './catalog/flux-options.js';
 export * from './catalog/flux-pulid-options.js';
 export * from './catalog/nano-banana-options.js';
+export * from './catalog/nano-banana-2-options.js';
 export * from './catalog/flux-kontext-options.js';
 
 // Utils
@@ -40,5 +41,6 @@ export * from './factories/omnihuman.js';
 export * from './factories/flux-2-pro.js';
 export * from './factories/flux-pulid.js';
 export * from './factories/nano-banana.js';
+export * from './factories/nano-banana-2.js';
 export * from './factories/kling-create-voice.js';
 export * from './factories/flux-kontext.js';
